@@ -3,7 +3,7 @@ local source = {}
 local defaults = {
     info_in_menu = 1,
     info_in_window = 1,
-    match_against_description = 1,
+    match_against_info = 1,
     symbols_in_menu = 1,
 }
 

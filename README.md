@@ -33,7 +33,7 @@ default: 1
 
 Show detailed information (such as citations details) in the documentation window.
 
-### match_against_description: integer
+### match_against_info: integer
 default: 1
 
 Fuzzy match against both keyword and description.

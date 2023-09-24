@@ -1,4 +1,4 @@
-# cmp-omni
+# cmp-vimtex
 
 [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) source for [Vimtex](https://github.com/lervag/vimtex)'s omnifunc.
 Based on [@hrsh7th](https://github.com/hrsh7th)'s [cmp-omni](https://github.com/hrsh7th/cmp-omni), with help from [@lervag](https://github.com/lervag).

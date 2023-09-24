@@ -9,7 +9,7 @@ Based on [@hrsh7th](https://github.com/hrsh7th)'s [cmp-omni](https://github.com/
 require'cmp'.setup {
   sources = {
     {
-      name = 'omni',
+      name = 'vimtex',
       option = {
         info_in_menu = 1,
         info_in_window = 1,
@@ -21,7 +21,7 @@ require'cmp'.setup {
 }
 ```
 
-# Option
+# Options
 
 ### info_in_menu: integer
 default: 1

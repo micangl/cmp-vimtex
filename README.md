@@ -1,7 +1,7 @@
 # cmp-omni
 
 nvim-cmp source for Vimtex's omnifunc.
-Based on @hrsh7th's [cmp-omni!](https://github.com/hrsh7th/cmp-omni), with help from @lervag.
+Based on [@hrsh7th](https://github.com/hrsh7th)'s [cmp-omni](https://github.com/hrsh7th/cmp-omni), with help from [@lervag](https://github.com/lervag).
 
 # Setup
 
@@ -13,10 +13,9 @@ require'cmp'.setup {
       option = {
         info_in_window = 0,
         match_against_description = 1,
-        
-      }
-    }
-  }
+      },
+    },
+  },
 }
 ```
 

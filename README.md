@@ -11,8 +11,10 @@ require'cmp'.setup {
     {
       name = 'omni',
       option = {
-        info_in_window = 0,
+        info_in_menu = 1,
+        info_in_window = 1,
         match_against_description = 1,
+        symbols_in_menu = 1,
       },
     },
   },
@@ -21,8 +23,13 @@ require'cmp'.setup {
 
 # Option
 
+### info_in_menu: integer
+default: 1
+
+Show detailed information (such as citations details) in the completion menu.
+
 ### info_in_window: integer
-default: 0
+default: 1
 
 Show detailed information (such as citations details) in the documentation window.
 
@@ -31,3 +38,8 @@ default: 1
 
 Fuzzy match against both keyword and description.
 Particularly useful when completing citations, since the user can simply type the author/title/publication date.
+
+### symbols_in_menu: integer
+default: 1
+
+Show sybmols associated with Latex keywords inside completion menu.

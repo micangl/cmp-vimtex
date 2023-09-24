@@ -1,8 +1,10 @@
 local source = {}
 
 local defaults = {
-    info_in_window = 0,
+    info_in_menu = 1,
+    info_in_window = 1,
     match_against_description = 1,
+    symbols_in_menu = 1,
 }
 
 local apply_config = function(user_config)
@@ -73,26 +75,30 @@ source.complete = function(self, params, callback)
           newText = v.word,
         },
         labelDetails = {
-            detail = v.kind,
+          detail = v.kind,
         },
       }
 
-      if config.info_in_window == 0 then
+      if config.info_in_menu == 1 and menuLength > 3 then
         _item.labelDetails.description = v.menu
-      else
-
-        if menuLength <= 3 then
-          _item.labelDetails.description = v.menu
-        else
-          _item.documentation = {
-              kind = 'plaintext',
-              value = v.info,
-          }
-        end
+      end
+      
+      if config.info_in_window == 1 then
+        _item.documentation = {
+          kind = 'plaintext',
+          value = v.info,
+        }
       end
 
-      if config.match_against_description == 1 then
+      if config.match_against_info == 1 then
         _item.filterText = (v.abbr or v.word) .. (v.menu ~= nil and (" " .. v.menu) or "")
+      end
+
+      -- Symbols should have a length of 1 but, since most of them are Unicode
+      -- characters, are more than 1 byte long (up to 3). Unfortunately, Lua
+      -- counts using the number of bytes, since it doesn't support Unicode.
+      if config.symbols_in_menu == 1 and menuLength <= 3 then
+        _item.labelDetails.description = v.menu
       end
 
       table.insert(items, _item)

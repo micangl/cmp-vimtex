@@ -12,6 +12,34 @@ Provides support for:
 - Displaying additional information provided by Vimtex in a separate documentation window:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/eb3d8605-037c-4d0e-bd59-6144d428db1b)
 
+# Installation
+
+Install the plugin through your plugin manager:
+
+[vim-plug](https://github.com/junegunn/vim-plug):
+```
+Plug 'micangl/cmp-vimtex'
+```
+
+[packer.nvim](https://github.com/wbthomason/packer.nvim) or [pckr.nvim](https://github.com/lewis6991/pckr.nvim):
+```
+use 'micangl/cmp-vimtex'
+```
+
+[pckr.nvim](https://github.com/lewis6991/pckr.nvim):
+```
+require('pckr').add{
+  'micangl/cmp-vimtex';
+}
+```
+
+[lazy.nvim](https://github.com/folke/lazy.nvim):
+```
+require("lazy").setup({
+  "micangl/cmp-vimtex",
+})
+```
+
 # Setup
 
 ```lua

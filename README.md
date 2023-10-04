@@ -48,11 +48,9 @@ require'cmp'.setup {
     {
       name = 'vimtex',
       option = {
-        info_in_menu = 1,
-        info_in_window = 1,
-        info_max_length = 60,
-        match_against_description = 1,
-        symbols_in_menu = 1,
+        --Set eventual options. For example,
+        --info_in_menu = 1,
+        --match_against_info = 1,
       },
     },
   },

@@ -3,6 +3,7 @@ local source = {}
 local defaults = {
     info_in_menu = 1,
     info_in_window = 1,
+    info_max_length = 60,
     match_against_info = 1,
     symbols_in_menu = 1,
 }
@@ -81,6 +82,11 @@ source.complete = function(self, params, callback)
 
       if config.info_in_menu == 1 and menuLength > 3 then
         _item.labelDetails.description = v.menu
+
+        --Inspired by https://github.com/hrsh7th/nvim-cmp/discussions/609#discussioncomment-1844480
+        if config.info_max_length >= 0 and v.menu:len() > config.info_max_length then
+          _item.labelDetails.description = vim.fn.strcharpart(_item.labelDetails.description, 0, config.info_max_length) .. '…'
+        end
       end
       
       if config.info_in_window == 1 then

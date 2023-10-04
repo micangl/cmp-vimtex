@@ -50,6 +50,7 @@ require'cmp'.setup {
       option = {
         info_in_menu = 1,
         info_in_window = 1,
+        info_max_length = 60,
         match_against_description = 1,
         symbols_in_menu = 1,
       },
@@ -69,6 +70,12 @@ Show detailed information (such as citations details) in the completion menu.
 default: 1
 
 Show detailed information (such as citations details) in the documentation window.
+
+### info_max_length: integer
+default: 60
+
+Limit length (width) of additional info shown in the completion menu to the specified number of characters.
+To turn off this feature, set the option to a negative value.
 
 ### match_against_info: integer
 default: 1

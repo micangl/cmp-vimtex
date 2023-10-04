@@ -8,7 +8,7 @@ Provides support for:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/4887b19b-d08d-44e3-9b29-22e91a3a1728)
 - Conveniently toggling symbols and additional information shown in the completion menu:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/fc167389-134d-4a7c-b083-2c9eafe98891)
-  ![](https://github.com/micangl/cmp-vimtex/assets/142919381/d2291237-81ba-408d-8860-a05487fed0fa)
+  ![](https://github.com/micangl/cmp-vimtex/assets/142919381/daa3c5b3-b3a7-46d4-a3e6-427b9d4371de)
 - Displaying additional information provided by Vimtex in a separate documentation window:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/eb3d8605-037c-4d0e-bd59-6144d428db1b)
 

@@ -59,6 +59,11 @@ require'cmp'.setup {
 
 # Options
 
+### info_in_markdown: integer
+default: 1
+
+Use markdown in documentation window, to improve readability for additional bibliographic information.
+
 ### info_in_menu: integer
 default: 1
 

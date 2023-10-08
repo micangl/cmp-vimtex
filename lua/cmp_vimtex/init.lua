@@ -1,4 +1,6 @@
 local source = {}
+local uv = vim.loop.version()
+local parser = require('cmp_vimtex.parser')
 
 local defaults = {
     info_in_menu = 1,
@@ -7,11 +9,130 @@ local defaults = {
     symbols_in_menu = 1,
 }
 
+--local group = vim.api.nvim_create_augroup('cmp_vimtex', {clear = true})
+--vim.api.nvim_create_autocmd({"BufWinEnter",}, {
+--  pattern = '*.tex',
+--  group = group,
+--  --callback = function() newbib() end,
+--  --callback = function() aucmd_function() end,
+--  --command = "echo 'Autocommand working.'",
+--  --callback = function()
+--  --    vim.schedule(function() newbib_r() end)
+--  --end,
+--  command = "lua newbib_r()",
+--
+--})
+
+newbib_r = function()
+    local parser = require('cmp_vimtex.parser')
+
+    vim.cmd([[call vimtex#paths#pushd(b:vimtex.root)]])
+    local files = vim.fn['vimtex#bib#files']()
+    for _, value in pairs(files) do
+        parser.parse_with_vim(parser, value)
+    end
+
+    vim.cmd([[call vimtex#paths#popd()]])
+end
+
+--newbib_r = function()
+--    vim.cmd([[call vimtex#paths#pushd(b:vimtex.root)]])
+--    local tmp = vim.fn['vimtex#bib#files']()
+--    logger(vim.g.cmp_vimtex_parsing)
+--    for _, value in pairs(tmp) do
+--        --For some reason this is not being assigned to vim.g.cmp_vimt...
+--        vim.g.cmp_vimtex_parsing.to_be_parsed[value] =  value
+--        logger(vim.g.cmp_vimtex_parsing)
+--    end
+--    --logger(vim.g.cmp_vimtex_parsing.to_be_parsed)
+--    --vim.g.cmp_vimtex_parsing.to_be_parsed = vim.fn['vimtex#bib#files']()
+--    -- For some reason the preceding assignment fails.
+--    --vim.cmd([[echom tostring(g:cmp_vimtex_parsing[to_be_parsed])]])
+--    --logger(vim.g.cmp_vimtex_parsing.to_be_parsed)
+--
+--    if vim.g.cmp_vimtex_parsing.to_be_parsed ~= nil then
+--        vim.schedule(function() vim.fn['cmp_vimtex#parse_with_vim_r']() end)
+--    end
+--end
+
+--newbib = function()
+--    logger(os.date("Beginning: %X"))
+--    beg_time = os.clock()
+--    vim.cmd([[call vimtex#paths#pushd(b:vimtex.root)]])
+--    local files = vim.fn['vimtex#bib#files']()
+--    
+--    local parsed_data = {}
+--
+--    for _, file in pairs(files) do
+--      -- Provisory variable
+--      local was_modified = 1
+--      if bib_files[file] == nil or was_modified then
+--        -- result is probably useless (as in not needed)
+--        logger(os.date("About to parse file: %X"))
+--        beg_parse_time_1 = os.clock()
+--        --local result = vim.fn['cmp_vimtex#parse_bibtex'](file)
+--        local result = vim.fn['cmp_vimtex#parse_with_vim'](file)
+--        --local result = parser(file)
+--        end_parse_time_1 = os.clock()
+--        logger("beg_parse_time: " .. beg_parse_time_1 - beg_time .. "\n")
+--        logger(os.date("Parsed file: %X"))
+--        logger("end_parse_time: " .. end_parse_time_1 - beg_parse_time_1 .. "\n")
+--        for key, value in pairs(result) do
+--            parsed_data[value.key] = value
+--        end
+--        logger(os.date("Formatted file: %X"))
+--        formatted_time = os.clock()
+--        logger("formatted_time: " .. formatted_time - end_parse_time_1 .. "\n")
+--        result = nil
+--        bib_files[file] = {
+--            required_by = {},
+--            added = {},
+--            data = parsed_data,
+--        }
+--        parsed_data = {}
+--        logger(os.date("Assigned table: %X"))
+--        assigned_time = os.clock()
+--        logger("formatted_time: " .. assigned_time - formatted_time .. "\n")
+--      end
+--    end
+--    end_time = os.clock()
+--    logger("End_time: " .. end_time - beg_time .. "\n")
+--    logger(os.date("Ending: %X"))
+--    logger(bib_files)
+--    logger("Log_time: " .. os.clock() - end_time .. "\n")
+--    logger(os.date("Logging: %X"))
+--    vim.cmd([[call vimtex#paths#popd()]])
+--    --res = vim.fn['cmp_vimtex#parse_bibtex']()
+--    --for ind, el in ipairs(res) do
+--    --  res[el.key] = el
+--    --  res[ind] = nil
+--    --end
+--end
+--
+--parse_response = function()
+--    -- Correctly formats the data.
+--    -- For each file.
+--    for key, _ in pairs(vim.g.cmp_vimtex_bib_files) do
+--        -- For each entry of the current file.
+--        for _key, _value in pairs(vim.g.cmp_vimtex_bib_files[key].data) do
+--            vim.g.cmp_vimtex_bib_files.data[_value._key] = _value
+--            vim.g.cmp_vimtex_bib_files.data[_key] = nil
+--        end
+--    end
+--
+--    vim.cmd([[call vimtex#paths#popd()]])
+--end
+
 local apply_config = function(user_config)
     return vim.tbl_deep_extend("keep", user_config, defaults)
 end
 
 source.new = function()
+  -- All the bibtex files which have been parsed.
+  bib_files = {}
+  vim.g.cmp_vimtex_parsing = {
+  to_be_parsed = {},
+  }
   return setmetatable({}, { __index = source })
 end
 
@@ -32,6 +153,8 @@ source.get_trigger_characters = function()
 end
 
 source.complete = function(self, params, callback)
+  --local fn = vim.schedule_wrap(newbib_r)
+  --fn()
   local config = apply_config(params.option)
 
   local offset_0 = self:_invoke(vim.bo.omnifunc, { 1, '' })
@@ -102,7 +225,7 @@ source.complete = function(self, params, callback)
       end
 
       table.insert(items, _item)
-          
+
     end
   end
   callback({ items = items })
@@ -120,90 +243,39 @@ source._invoke = function(_, func, args)
   return result
 end
 
-function dump(o)
-    if type(o) == 'table' then
-        return print_table(o)
-    else
-        return tostring(o)
+parser = function(file)
+
+    if not vim.fn.filereadable(file) then
+        return {}
     end
-end
-function print_table(node)
-    local cache, stack, output = {},{},{}
-    local depth = 1
-    local output_str = "{\n"
 
-    while true do
-        local size = 0
-        for k,v in pairs(node) do
-            size = size + 1
-        end
+    local current = {}
+    local strings = {}
+    local entries = {}
+    local lnum = 0
+    for _, line in pairs(vim.fn.readfile(file)) do
+        lnum = lnum + 1
 
-        local cur_index = 1
-        for k,v in pairs(node) do
-            if (cache[node] == nil) or (cur_index >= cache[node]) then
-
-                if (string.find(output_str,"}",output_str:len())) then
-                    output_str = output_str .. ",\n"
-                elseif not (string.find(output_str,"\n",output_str:len())) then
-                    output_str = output_str .. "\n"
-                end
-
-                -- This is necessary for working with HUGE tables otherwise we run out of memory using concat on huge strings
-                table.insert(output,output_str)
-                output_str = ""
-
-                local key
-                if (type(k) == "number" or type(k) == "boolean") then
-                    key = "["..tostring(k).."]"
-                else
-                    key = "['"..tostring(k).."']"
-                end
-
-                if (type(v) == "number" or type(v) == "boolean") then
-                    output_str = output_str .. string.rep('\t',depth) .. key .. " = "..tostring(v)
-                elseif (type(v) == "table") then
-                    output_str = output_str .. string.rep('\t',depth) .. key .. " = {\n"
-                    table.insert(stack,node)
-                    table.insert(stack,v)
-                    cache[node] = cur_index+1
-                    break
-                else
-                    output_str = output_str .. string.rep('\t',depth) .. key .. " = '"..tostring(v).."'"
-                end
-
-                if (cur_index == size) then
-                    output_str = output_str .. "\n" .. string.rep('\t',depth-1) .. "}"
-                else
-                    output_str = output_str .. ","
-                end
-            else
-                -- close the table
-                if (cur_index == size) then
-                    output_str = output_str .. "\n" .. string.rep('\t',depth-1) .. "}"
-                end
+        if vim.fn.empty(current) then
+            if vim.fn['cmp_vimtex#parse_type'](file, lnum, line, current, strings, entries) then
+                current = {}
             end
-
-            cur_index = cur_index + 1
+            goto continue
         end
 
-        if (size == 0) then
-            output_str = output_str .. "\n" .. string.rep('\t',depth-1) .. "}"
-        end
-
-        if (#stack > 0) then
-            node = stack[#stack]
-            stack[#stack] = nil
-            depth = cache[node] == nil and depth + 1 or depth - 1
+        if current.type == 'string' then
+            if vim.fn['cmp_vimtex#parse_string'](line, current, strings) then
+                current = {}
+            end
         else
-            break
+            if vim.fn['cmp_vimtex#parse_entry'](line, current, string) then
+                current = {}
+            end
         end
+        ::continue::
     end
-
-    -- This is necessary for working with HUGE tables otherwise we run out of memory using concat on huge strings
-    table.insert(output,output_str)
-    output_str = table.concat(output)
-
-    return output_str
+    
+    return vim.fn.map(entries, 's:parse_entry_body(v:val, l:strings)')
 end
 
 return source

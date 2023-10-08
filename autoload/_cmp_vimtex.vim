@@ -21,108 +21,6 @@ function! cmp_vimtex#parse_bibtex(file) abort
   return l:entries
 endfunction
 
-function! cmp_vimtex#parse_with_vim_r() abort
-  lua vim.g.start_date = os.date("%X")
-  lua vim.g.start_time = os.clock()
-  echom "1_begin_date: " g:start_date
-
-  echom string(g:cmp_vimtex_parsing)
-  if g:cmp_vimtex_parsing.to_be_parsed[0]
-      g:cmp_vimtex_parsing.is_being_parsed = g:cmp_vimtex_parsing.to_be_parsed[0]
-      let l:file = g:cmp_vimtex_parsing.to_be_parsed[0]
-      unlet g:cmp_vimtex_parsing.to_be_parsed[0]
-  endif
-
-  if !filereadable(l:file)
-    return []
-  endif
-
-  "The following entries are used only for the current file.
-  let g:cmp_vimtex_parsing = {
-    \ 'data' : [],
-    \ 'current' : {},
-    \ 'strings' : {},
-    \ 'entries' : [],
-    \ 'indexed' : 0,
-    \ 'lnum' : -1,
-    \ }
-  lua logger(os.date("initialized: %X"))
-  lua logger(os.clock())
-  " Should be initialized in lua, or superseded by vim.g.cmp_vimtex_bib_files.
-  let g:cmp_vimtex_parsing['data'] = readfile(l:file)
-
-  lua vim.schedule(vim.fn['cmp_vimtex#parse_r'])
-  return
-endfunction
-
-function! cmp_vimtex#parse_r() abort
-  
-  let l:current_lines = 0
-  let l:beg = g:cmp_vimtex_parsing.lnum + 1
-  let l:end = l:beg + 99
-  let l:arr = g:cmp_vimtex_parsing.data[beg:end]
-  unlet l:beg
-  unlet l:end
-
-  for l:line in l:arr
-    let g:cmp_vimtex_parsing.lnum += 1
-    let l:current_lines += 1
-
-    if empty(g:cmp_vimtex_parsing.current)
-      if cmp_vimtex#parse_type(g:cmp_vimtex_parsing.file, g:cmp_vimtex_parsing.lnum, l:line, g:cmp_vimtex_parsing.current, g:cmp_vimtex_parsing.strings, g:cmp_vimtex_parsing.entries)
-        let g:cmp_vimtex_parsing.current = {}
-      endif
-      continue
-    endif
-
-    if g:cmp_vimtex_parsing.current.type ==# 'string'
-      if cmp_vimtex#parse_string(l:line, g:cmp_vimtex_parsing.current, g:cmp_vimtex_parsing.strings)
-        let g:cmp_vimtex_parsing.current = {}
-      endif
-    else
-      if cmp_vimtex#parse_entry(l:line, g:cmp_vimtex_parsing.current, g:cmp_vimtex_parsing.entries)
-        let g:cmp_vimtex_parsing.current = {}
-      endif
-    endif
-
-    "The 100th line of the current batch should be the last to be indexed on
-    "the current cycle.
-    if l:current_lines >= 100
-      unlet l:current_lines
-      unlet l:arr
-      lua vim.defer_fn(function() vim.fn['cmp_vimtex#parse_r']() end, 10)
-      break
-    endif
-  endfor
-
-  unlet g:cmp_vimtex_parsing.data
-  unlet g:cmp_vimtex_parsing.current
-  unlet g:cmp_vimtex_parsing.indexed
-  unlet g:cmp_vimtex_parsing.lnum
-  "Set vim.g.cmp_vimtex_bib_files for the current file.
-  let g:cmp_vimtex_bib_files[g:cmp_vimtex_parsing.file].data = map(g:cmp_vimtex_parsing.entries, 'cmp_vimtex#parse_entry_body(v:val, g:cmp_vimtex_parsing.strings)')
-  let g:cmp_vimtex_bib_files[g:cmp_vimtex_parsing.file].required_by += g:cmp_vimtex_parsing.file
-  unlet g:cmp_vimtex_parsing.is_being_parsed
-  unlet g:cmp_vimtex_parsing.strings
-  unlet g:cmp_vimtex_parsing.entries
-
-  "
-  "Should parse the remaining bibtex files
-  "if some_files_remaining...
-
-  "Only at this point unlet g:cmp_vimtex_parsing
-  unlet g:cmp_vimtex_parsing
-
-  " Benchmarking code.
-  lua vim.g.end_time = os.clock()
-  lua vim.g.end_date = os.date("%X")
-  echom "elapsed time: " (g:end_time - g:start_time)
-  echom "begin time: " (g:start_date)
-  echom "end time: " (g:end_time)
-
-  lua vim.defer_fn(function() parse_response() end, 10)
-endfunction
-
 function! cmp_vimtex#parse_with_vim(file) abort " {{{1
   " Adheres to the format description found here:
   " http://www.bibtex.org/Format/
@@ -137,9 +35,8 @@ function! cmp_vimtex#parse_with_vim(file) abort " {{{1
   let l:entries = []
   let l:lnum = 0
   let l:start_time = reltime()
-  let l:bib_file = readfile(a:file)
   lua vim.g.begin_for_time = os.clock()
-  for l:line in l:bib_file
+  for l:line in readfile(a:file)
     let l:lnum += 1
 
     if empty(l:current)

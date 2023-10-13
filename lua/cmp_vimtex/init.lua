@@ -2,9 +2,11 @@ local source = {}
 local uv = vim.loop.version()
 
 local defaults = {
+    info_in_markdown = 1,
     info_in_menu = 1,
     info_in_window = 1,
-    match_against_description = 1,
+    info_max_length = 60,
+    match_against_info = 1,
     parse_bibtex = 1,
     symbols_in_menu = 1,
 }
@@ -100,11 +102,16 @@ source.complete = function(self, params, callback)
         },
       }
 
-      --if config.info_in_menu == 1 and menuLength > 3 then
-      --  _item.labelDetails.description = v.menu
-      --end
+      if config.info_in_menu == 1 and menuLength > 3 then
+        _item.labelDetails.description = v.menu
 
-      if config.info_in_window == 1 then
+        -- Inspired by https://github.com/hrsh7th/nvim-cmp/discussions/609#discussioncomment-1844480
+        if config.info_max_length >= 0 and v.menu:len() > config.info_max_length then
+          _item.labelDetails.description = vim.fn.strcharpart(_item.labelDetails.description, 0, config.info_max_length) .. '…'
+        end
+      end
+      
+      if config.info_in_window == 1 and v.info ~= nil then
         if config.parse_bibtex == 1 then
           for _, data in pairs(self.bib_files) do
             if data.indexed == 1  and data.result[_item.label] ~= nil then
@@ -116,8 +123,9 @@ source.complete = function(self, params, callback)
           end
         else
           _item.documentation = {
-            kind = 'plaintext',
-            value = v.info,
+            kind = 'markdown',
+            -- "%u%u+" specifies at least two consecutive uppercase letters.
+            value = string.gsub(v.info, "%u%u+", function(s) return "**" .. s .. "**" end),
           }
         end
       end
@@ -134,7 +142,6 @@ source.complete = function(self, params, callback)
       end
 
       table.insert(items, _item)
-
     end
   end
   callback({ items = items })

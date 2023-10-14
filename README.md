@@ -1,7 +1,6 @@
 # cmp-vimtex
 
-[nvim-cmp](https://github.com/hrsh7th/nvim-cmp) source for [Vimtex](https://github.com/lervag/vimtex)'s omnifunc.
-Based on [@hrsh7th](https://github.com/hrsh7th)'s [cmp-omni](https://github.com/hrsh7th/cmp-omni), with help from [@lervag](https://github.com/lervag).
+[nvim-cmp](https://github.com/hrsh7th/nvim-cmp) source providing bespoke support for [Vimtex](https://github.com/lervag/vimtex)'s omnifunc.
 
 Provides support for:
 - Fuzzy matching against all info provided by Vimtex (including bibliographic details, useful for citations):
@@ -110,3 +109,11 @@ default: 1
 The source comes with a bibtex parser (a lua port of Vimtex's own), used to display, inside the documentation window, all of the bibliographic informations contained in the files.
 
 If the parser is disabled, the plugin will only show author/title/publication date (provided directly by Vimtex's omnifunc).
+
+# Acknoledgment
+
+This plugin is based on [@hrsh7th](https://github.com/hrsh7th)'s [cmp-omni](https://github.com/hrsh7th/cmp-omni).
+The [timer implementation](https://github.com/micangl/cmp-vimtex/blob/master/lua/cmp_vimtex/timer.lua) has been taken from [cmp-buffer](https://github.com/hrsh7th/cmp-buffer).
+The bibtex parser is a lua rewrite of [Vimtex](https://github.com/lervag/vimtex)'s integrated parser, which has also been adapted for asynchronous execution.
+
+I'd like to thank [@lervag](https://github.com/lervag) for all the help provided when developing this plugin.

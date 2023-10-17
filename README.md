@@ -110,7 +110,7 @@ The source comes with a bibtex parser (a lua port of Vimtex's own), used to disp
 
 If the parser is disabled, the plugin will only show author/title/publication date (provided directly by Vimtex's omnifunc).
 
-# Acknoledgment
+# Acknowledgment
 
 This plugin is based on [@hrsh7th](https://github.com/hrsh7th)'s [cmp-omni](https://github.com/hrsh7th/cmp-omni).
 The [timer implementation](https://github.com/micangl/cmp-vimtex/blob/master/lua/cmp_vimtex/timer.lua) has been taken from [cmp-buffer](https://github.com/hrsh7th/cmp-buffer).

@@ -7,7 +7,7 @@ Provides support for:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/4887b19b-d08d-44e3-9b29-22e91a3a1728)
 - Parse and display all details contained in bibtex files:
   ![](https://github-production-user-asset-6210df.s3.amazonaws.com/142919381/274990752-d9cba239-aa54-4398-a17f-02f6eec1d628.png)
-- Trimming long strings in the completion menu (adds space to for the documenation window):
+- Trimming long strings in the completion menu (adds space for the documenation window):
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/bed1ab56-09cf-486c-baa9-be4198e52ce0)
 - Conveniently toggling symbols and additional information shown in the completion menu:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/fc167389-134d-4a7c-b083-2c9eafe98891)
@@ -110,7 +110,7 @@ The source comes with a bibtex parser (a lua port of Vimtex's own), used to disp
 
 If the parser is disabled, the plugin will only show author/title/publication date (provided directly by Vimtex's omnifunc).
 
-# Acknowledgment
+# Acknowledgments
 
 This plugin is based on [@hrsh7th](https://github.com/hrsh7th)'s [cmp-omni](https://github.com/hrsh7th/cmp-omni).
 The [timer implementation](https://github.com/micangl/cmp-vimtex/blob/master/lua/cmp_vimtex/timer.lua) has been taken from [cmp-buffer](https://github.com/hrsh7th/cmp-buffer).

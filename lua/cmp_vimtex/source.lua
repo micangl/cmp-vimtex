@@ -35,6 +35,7 @@ source.new = function(options)
   local self = setmetatable({}, { __index = source })
   self.bib_files = {}
   self.config = apply_config(options)
+  self.config_loaded = true
   cmp_vimtex_global = self
 
   return self

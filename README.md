@@ -19,24 +19,24 @@ Provides support for:
 Install the plugin through your plugin manager:
 
 [vim-plug](https://github.com/junegunn/vim-plug):
-```
+```lua
 Plug 'micangl/cmp-vimtex'
 ```
 
 [packer.nvim](https://github.com/wbthomason/packer.nvim) or [pckr.nvim](https://github.com/lewis6991/pckr.nvim):
-```
+```lua
 use 'micangl/cmp-vimtex'
 ```
 
 [pckr.nvim](https://github.com/lewis6991/pckr.nvim):
-```
+```lua
 require('pckr').add{
   'micangl/cmp-vimtex';
 }
 ```
 
 [lazy.nvim](https://github.com/folke/lazy.nvim):
-```
+```lua
 require("lazy").setup({
   "micangl/cmp-vimtex",
 })
@@ -44,13 +44,18 @@ require("lazy").setup({
 
 # Setup
 
+Add cmp-vimtex as a completion source:
+
 ```lua
 require('cmp').setup({
   sources = {
     { name = 'vimtex', },
   },
 })
+```
+Eventually, apply your configuration:
 
+```lua
 require('cmp_vimtex').setup({
     -- Eventual options can be specified here.
     -- See below for further details.
@@ -61,7 +66,7 @@ require('cmp_vimtex').setup({
 
 These are the default values of the configuration options:
 
-```
+```lua
 require('cmp_vimtex').setup({
     additional_information = {
         info_in_menu = 1,

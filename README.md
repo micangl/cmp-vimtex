@@ -53,7 +53,7 @@ require('cmp').setup({
   },
 })
 ```
-Eventually, apply your configuration:
+Eventually, apply your configuration (**note**:this is not necessary unless you want to apply a custom configuration):
 
 ```lua
 require('cmp_vimtex').setup({

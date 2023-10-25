@@ -9,7 +9,7 @@ local defaults = {
     symbols_in_menu = 1,
   },
   bibtex_parser = {
-    enabled = 1,
+    enabled = true,
   },
 }
 
@@ -121,7 +121,7 @@ source.complete = function(self, params, callback)
       end
 
       if config.additional_information.info_in_window == 1 and v.info ~= nil then
-        if config.bibtex_parser.enabled == 1 then
+        if config.bibtex_parser.enabled then
           for _, data in pairs(self.bib_files) do
             if data.indexed == 1 and data.result[_item.label] ~= nil then
               _item.documentation = {

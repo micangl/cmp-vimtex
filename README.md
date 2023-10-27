@@ -9,6 +9,7 @@ Provides support for:
   ![](https://github-production-user-asset-6210df.s3.amazonaws.com/142919381/274990752-d9cba239-aa54-4398-a17f-02f6eec1d628.png)
 - Trimming long strings in the completion menu (adds space for the documenation window):
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/bed1ab56-09cf-486c-baa9-be4198e52ce0)
+- Trigger the completion menu automatically after typing `\cite{` (normally, it has to be done manually).
 - Conveniently toggling symbols and additional information shown in the completion menu:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/fc167389-134d-4a7c-b083-2c9eafe98891)
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/daa3c5b3-b3a7-46d4-a3e6-427b9d4371de)

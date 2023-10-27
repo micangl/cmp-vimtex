@@ -76,7 +76,7 @@ require('cmp_vimtex').setup({
         symbols_in_menu = 1,
     },
     bibtex_parser = {
-        enabled = 1,
+        enabled = true,
     },
 })
 ```
@@ -108,8 +108,8 @@ default: 1
 
 Show sybmols associated with Latex keywords inside completion menu.
 
-### bibtex_parser.enabled: integer
-default: 1
+### bibtex_parser.enabled: boolean
+default: true
 
 The source comes with a bibtex parser (a lua port of Vimtex's own), used to display, inside the documentation window, all of the bibliographic informations contained in the files.
 

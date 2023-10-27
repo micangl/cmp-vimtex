@@ -2,11 +2,11 @@ local source = {}
 
 local defaults = {
   additional_information = {
-    info_in_menu = 1,
-    info_in_window = 1,
+    info_in_menu = true,
+    info_in_window = true,
     info_max_length = 60,
-    match_against_info = 1,
-    symbols_in_menu = 1,
+    match_against_info = true,
+    symbols_in_menu = true,
   },
   bibtex_parser = {
     enabled = true,
@@ -104,7 +104,7 @@ source.complete = function(self, params, callback)
         },
       }
 
-      if config.additional_information.info_in_menu == 1 and menuLength > 3 then
+      if config.additional_information.info_in_menu and menuLength > 3 then
         _item.labelDetails.description = v.menu
 
         -- Inspired by https://github.com/hrsh7th/nvim-cmp/discussions/609#discussioncomment-1844480
@@ -120,7 +120,7 @@ source.complete = function(self, params, callback)
         end
       end
 
-      if config.additional_information.info_in_window == 1 and v.info ~= nil then
+      if config.additional_information.info_in_window and v.info ~= nil then
         if config.bibtex_parser.enabled then
           for _, data in pairs(self.bib_files) do
             if data.indexed == 1 and data.result[_item.label] ~= nil then
@@ -141,14 +141,14 @@ source.complete = function(self, params, callback)
         end
       end
 
-      if config.additional_information.match_against_info == 1 then
+      if config.additional_information.match_against_info then
         _item.filterText = (v.abbr or v.word) .. (v.menu ~= nil and (" " .. v.menu) or "")
       end
 
       -- Symbols should have a length of 1 but, since most of them are Unicode
       -- characters, are more than 1 byte long (up to 3). Unfortunately, Lua
       -- counts using the number of bytes, since it doesn't support Unicode.
-      if config.additional_information.symbols_in_menu == 1 and menuLength <= 3 then
+      if config.additional_information.symbols_in_menu and menuLength <= 3 then
         _item.labelDetails.description = v.menu
       end
 

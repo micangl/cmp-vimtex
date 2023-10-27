@@ -69,11 +69,11 @@ These are the default values of the configuration options:
 ```lua
 require('cmp_vimtex').setup({
     additional_information = {
-        info_in_menu = 1,
-        info_in_window = 1,
+        info_in_menu = true,
+        info_in_window = true,
         info_max_length = 60,
-        match_against_info = 1,
-        symbols_in_menu = 1,
+        match_against_info = true,
+        symbols_in_menu = true,
     },
     bibtex_parser = {
         enabled = true,
@@ -81,13 +81,13 @@ require('cmp_vimtex').setup({
 })
 ```
 
-### additional_information.info_in_menu: integer
-default: 1
+### additional_information.info_in_menu: boolean
+default: true
 
 Show detailed information (such as citations details) in the completion menu.
 
-### additional_information.info_in_window: integer
-default: 1
+### additional_information.info_in_window: boolean
+default: true
 
 Show detailed information (such as citations details) in the documentation window.
 
@@ -97,14 +97,14 @@ default: 60
 Limit length (width) of additional info shown in the completion menu to the specified number of characters.
 To turn off this feature, set the option to a negative value.
 
-### additional_information.match_against_info: integer
-default: 1
+### additional_information.match_against_info: boolean
+default: true
 
 Fuzzy match against both keyword and description.
 Particularly useful when completing citations, since the user can simply type the author/title/publication date.
 
-### additional_information.symbols_in_menu: integer
-default: 1
+### additional_information.symbols_in_menu: boolean
+default: true
 
 Show sybmols associated with Latex keywords inside completion menu.
 

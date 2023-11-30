@@ -25,6 +25,7 @@ source.start_parser = function(self)
       self.bib_files[file] = new_parser
     end
   end
+  vim.cmd [[call vimtex#paths#popd()]]
 end
 
 local apply_config = function(user_config)

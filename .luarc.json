@@ -9,5 +9,12 @@
       "${3rd}/luv/library"
     ],
     "checkThirdParty": false
-  }
+  },
+    "diagnostics.disable": [
+        "unused-function",
+        "unused-local"
+    ],
+    "diagnostics.globals": [
+        "extract_bib_data"
+    ]
 }

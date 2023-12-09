@@ -156,6 +156,7 @@ source.complete = function(self, params, callback)
       table.insert(items, _item)
     end
   end
+  logger(cmp_vimtex_global)
   callback { items = items }
 end
 

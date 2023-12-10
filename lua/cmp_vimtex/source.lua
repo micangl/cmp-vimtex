@@ -11,6 +11,46 @@ local defaults = {
   bibtex_parser = {
     enabled = true,
   },
+  search = {
+    browser = "$BROWSER",
+    default = "google_scholar",
+    search_engines = {
+      google_scholar = {
+        name = "Google Scholar",
+        get_url = require('cmp_vimtex').url_default_format("https://scholar.google.com/scholar?hl=en&q=%s"),
+      },
+      arxiv = {
+        name = "arXiv",
+        get_url = require('cmp_vimtex').url_default_format("https://arxiv.org/search/?query=%s&searchtype=all"),
+        --get_url = function(data)
+        --  local search_url = nil
+        --  if type(data) == "table" and data.eprinttype == "arxiv" and data.eprint ~= nil then
+        --    search_url = string.format("https://arxiv.org/search/?query=%s&searchtype=all", data.eprint)
+        --  else
+        --    local fn = require('cmp_vimtex').url_default_format("https://arxiv.org/search/?query=%s&searchtype=all")
+        --    search_url = fn(data)
+        --  end
+        --  return search_url
+        --end,
+      },
+      ieee_xplore = {
+        name = "IEEE Xplore",
+        get_url = require('cmp_vimtex').url_default_format("https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=%s"),
+      },
+      researchgate = {
+        name = "ResearchGate",
+        get_url = require('cmp_vimtex').url_default_format("https://www.researchgate.net/search/publication?q=%s"),
+      },
+      jstor = {
+        name = "JSTOR",
+        get_url = require('cmp_vimtex').url_default_format("https://www.jstor.org/action/doBasicSearch?Query=%s"),
+      },
+      semantic_scholar = {
+        name = "Semantic Scholar",
+        get_url = require('cmp_vimtex').url_default_format("https://www.semanticscholar.org/search?q=%s"),
+      },
+    },
+  },
 }
 
 source.start_parser = function(self)
@@ -156,7 +196,6 @@ source.complete = function(self, params, callback)
       table.insert(items, _item)
     end
   end
-  logger(cmp_vimtex_global)
   callback { items = items }
 end
 

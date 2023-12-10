@@ -15,6 +15,7 @@
         "unused-local"
     ],
     "diagnostics.globals": [
-        "extract_bib_data"
+        "extract_bib_data",
+        "logger"
     ]
 }

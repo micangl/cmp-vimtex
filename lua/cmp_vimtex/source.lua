@@ -49,6 +49,18 @@ local defaults = {
         name = "Semantic Scholar",
         get_url = require('cmp_vimtex').url_default_format("https://www.semanticscholar.org/search?q=%s"),
       },
+      google = {
+        name = "Google",
+        get_url = require('cmp_vimtex').url_default_format("https://www.google.com/search?q=%s"),
+      },
+      brave_search = {
+        name = "Brave Search",
+        get_url = require('cmp_vimtex').url_default_format("https://search.brave.com/search?q=%s"),
+      },
+      duckduckgo = {
+        name = "DuckDuckGo",
+        get_url = require('cmp_vimtex').url_default_format("https://duckduckgo.com/?q=%s"),
+      },
     },
   },
 }

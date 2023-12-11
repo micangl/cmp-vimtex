@@ -13,7 +13,7 @@ this information will result superflous to many users.
 
 ## Installation
 
-Install the plugin through your plugin manager. For example:
+Install the plugin through your plugin manager, and add it as a completion source. For example:
 
 [vim-plug](https://github.com/junegunn/vim-plug):
 ```vim
@@ -36,6 +36,15 @@ require('pckr').add{
 ```lua
 require("lazy").setup({
   "micangl/cmp-vimtex",
+})
+```
+
+Add it to the list of sources.
+```lua
+require('cmp').setup({
+  sources = {
+    { name = 'vimtex', },
+  },
 })
 ```
 
@@ -62,3 +71,13 @@ people who find themselves working a lot with citations.
 
 - Parsing all the information contained in bibtex files, and displaying it in the documentation window.
   ![](https://github-production-user-asset-6210df.s3.amazonaws.com/142919381/274990752-d9cba239-aa54-4398-a17f-02f6eec1d628.png)
+- Searching in bibliographic databases and search engines.
+
+  | Bibliographic databases | Search engines |
+  | ----------- | ----------- |
+  | [Google Scholar](https://scholar.google.com/) | [DuckDuckGo](https://duckduckgo.com/) |
+  | [IEEE Xplore](https://ieeexplore.ieee.org/Xplore/home.jsp) | [Brave Search](https://search.brave.com/) |
+  | [arXiv](https://arxiv.org/) | [Google](https://www.google.com/) |
+  | [ResearchGate](https://www.researchgate.net/) | |
+  | [JSTOR](https://www.jstor.org/) | |
+  | [Sematic Scholar](https://www.semanticscholar.org/) | |

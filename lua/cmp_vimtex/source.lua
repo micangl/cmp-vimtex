@@ -12,7 +12,7 @@ local defaults = {
     enabled = true,
   },
   search = {
-    browser = "$BROWSER",
+    browser = "xdg-open",
     default = "google_scholar",
     search_engines = {
       google_scholar = {

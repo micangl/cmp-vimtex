@@ -43,7 +43,6 @@ M.url_default_format = function(url)
         search_url = string.format(url, data)
       end
 
-      logger(search_url)
       return search_url
     end
   else

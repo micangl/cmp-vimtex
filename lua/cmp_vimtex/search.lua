@@ -36,7 +36,7 @@ search.perform_search = function(opts, label)
     end
 
     if url ~= nil then
-      vim.cmd(string.format([[silent execute '!xdg-open ' .. shellescape(expand("%s"), v:true)]], url))
+      vim.cmd(string.format([[silent execute '!%s ' .. shellescape(expand("%s"), v:true)]], cmp_vimtex_global.config.search.browser, url))
     end
   else
     -- Check if under cursor there is a citation key. If so, query the cache to

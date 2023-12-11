@@ -90,14 +90,14 @@ people who find themselves working a lot with citations.
 
   Alternatively, the `perform_search` can be used to immediately perform a websearch with a specific engine.
   It can, optionally, receive as argument a table with the engine key, which unusprisingly specifies which engine to use.
-  If none is provided, the default is used; this can be specified with the []() field. As an example:
+  If none is provided, the default is used; this can be specified with the [default](#searchdefault-string) field. As an example:
   ```lua
   vim.keymap.set("i", "<C-s>", function() require('cmp_vimtex.search').perform_search({ engine = "arxiv", }) end)
   ```
 
   Notice how `perform_search` is wrapped in an anonymous function.
 
-  The browser employed to perform the websearch is determined by the [browser]() option.
+  The browser employed to perform the websearch is determined by the [browser](#searchbrowser-string) option.
 
   The engines shipped with the plugin are:
 
@@ -126,7 +126,7 @@ people who find themselves working a lot with citations.
   ```
 
   For more advanced uses, users can define their own `get_url` function. Since this is outside the scope of this tutorial, interested users
-  can refere to the implementation of the `url_default_format` function in the [init.lua]() file.
+  can refere to the implementation of the `url_default_format` function in the [init.lua](https://github.com/micangl/cmp-vimtex/blob/tutorial/lua/cmp_vimtex/init.lua) file.
 
 ## Options
 

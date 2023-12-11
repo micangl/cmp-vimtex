@@ -9,7 +9,6 @@ this information will result superflous to many users.
 - [Features](#features)
   - [Basic enhancements](#basic-enhancements)
   - [Additional enhancements](#additional-enhancements)
-- [Configuration](#configuration)
 - [Options](#options)
 
 ## Installation

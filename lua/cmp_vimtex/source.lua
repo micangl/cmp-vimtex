@@ -43,7 +43,7 @@ source.new = function(options)
 end
 
 source.is_available = function()
-  return vim.bo.omnifunc ~= "" and vim.api.nvim_get_mode().mode == "i"
+  return vim.bo.omnifunc == "vimtex#complete#omnifunc"
 end
 
 source.get_position_encoding_kind = function()

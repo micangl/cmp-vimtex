@@ -14,6 +14,10 @@ local defaults = {
 }
 
 source.start_parser = function(self)
+  if not vim.uv.fs_stat(vim.b.vimtex.root) then
+    return
+  end
+
   local parser = require "cmp_vimtex.parser"
 
   vim.cmd [[call vimtex#paths#pushd(b:vimtex.root)]]

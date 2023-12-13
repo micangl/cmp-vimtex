@@ -14,7 +14,7 @@ local defaults = {
 }
 
 source.start_parser = function(self)
-  if not vim.uv.fs_stat(vim.b.vimtex.root) then
+  if not vim.loop.fs_stat(vim.b.vimtex.root) then
     return
   end
 

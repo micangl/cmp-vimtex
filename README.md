@@ -43,13 +43,11 @@ If you're manually specifying a custom `format` function (this doesn't apply to 
 ```lua
 format = function(entry, vim_item)
   vim_item.menu = ({
-    buffer = "[Buffer]",
-    nvim_lsp = "[LSP]",
-    luasnip = "[LuaSnip]",
-    nvim_lua = "[Nvim lua]",
     -- Use this line if you wish to add a specific kind for cmp-vimtex:
     --vimtex = "[Vimtex]" .. (vim_item.menu ~= nil and vim_item.menu or ""),
     vimtex = vim_item.menu,
+    buffer = "[Buffer]",
+    nvim_lsp = "[LSP]",
   })[entry.source.name]
 
   return vim_item

@@ -23,4 +23,31 @@ M.setup = function(options)
   end
 end
 
+M.url_default_format = function(url)
+  if url ~= nil then
+    return function(data)
+      local search_url = nil
+      if type(data) == "table" then
+        local keyword = ""
+        if data.shorttitle ~= nil then
+          keyword = keyword .. data.shorttitle
+        elseif data.title ~= nil then
+          keyword = keyword .. data.title
+        end
+
+        keyword = keyword:gsub('[^a-zA-Z0-9\009-\013\032]', '')
+        keyword = keyword:gsub('%s', '+')
+
+        search_url = string.format(url, keyword)
+      elseif type(data) == "string" then
+        search_url = string.format(url, data)
+      end
+
+      return search_url
+    end
+  else
+    return nil
+  end
+end
+
 return M

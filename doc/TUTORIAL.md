@@ -48,6 +48,22 @@ require('cmp').setup({
 })
 ```
 
+If you're manually specifying a custom `format` function (this doesn't apply to [lspkind.nvim](https://github.com/onsails/lspkind.nvim)), make sure not to overwrite `cmp-vimtex`'s additional information:
+
+```lua
+format = function(entry, vim_item)
+  vim_item.menu = ({
+    -- Use this line if you wish to add a specific kind for cmp-vimtex:
+    --vimtex = "[Vimtex]" .. (vim_item.menu ~= nil and vim_item.menu or ""),
+    vimtex = vim_item.menu,
+    buffer = "[Buffer]",
+    nvim_lsp = "[LSP]",
+  })[entry.source.name]
+
+  return vim_item
+end
+```
+
 ## Features
 
 This plugin provides a variety of features, mostly related to bibliographic citations.
@@ -68,7 +84,7 @@ people who find themselves working a lot with citations.
 - Toggling symbols and additional information shown in the completion menu:
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/fc167389-134d-4a7c-b083-2c9eafe98891)
   <img src="https://github.com/micangl/cmp-vimtex/assets/142919381/daa3c5b3-b3a7-46d4-a3e6-427b9d4371de" alt="drawing" width="500"/>
-  
+
   These can be toggled, respectively, by [symbols_in_menu](additional_informationsymbols_in_menu-boolean) and [info_in_menu](additional_informationinfo_in_menu-boolean).
 
 ### Additional enhancements
@@ -80,7 +96,7 @@ people who find themselves working a lot with citations.
 
   If the display of information is, in both cases, undesired, setting the option [info_in_window](#additional_informationinfo_in_window-boolean) to `false` will prevent it.
 - Searching in bibliographic databases and through search engines.
-  
+
   When a specific entry is selected, calling the `search_menu` function will open a menu, thus allowing the user to select
   a bibliographic database, or search engine, of his choice. It is advised to map said function; as an example:
   ```lua

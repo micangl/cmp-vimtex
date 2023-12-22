@@ -19,23 +19,6 @@ Provides support for:
 
 Install the plugin through your plugin manager:
 
-[vim-plug](https://github.com/junegunn/vim-plug):
-```lua
-Plug 'micangl/cmp-vimtex'
-```
-
-[packer.nvim](https://github.com/wbthomason/packer.nvim) or [pckr.nvim](https://github.com/lewis6991/pckr.nvim):
-```lua
-use 'micangl/cmp-vimtex'
-```
-
-[pckr.nvim](https://github.com/lewis6991/pckr.nvim):
-```lua
-require('pckr').add{
-  'micangl/cmp-vimtex';
-}
-```
-
 [lazy.nvim](https://github.com/folke/lazy.nvim):
 ```lua
 require("lazy").setup({
@@ -54,6 +37,25 @@ require('cmp').setup({
   },
 })
 ```
+
+If you're manually specifying a custom `format` function (this doesn't apply to [lspkind.nvim](https://github.com/onsails/lspkind.nvim)), make sure not to overwrite `cmp-vimtex`'s additional information:
+
+```lua
+format = function(entry, vim_item)
+  vim_item.menu = ({
+    buffer = "[Buffer]",
+    nvim_lsp = "[LSP]",
+    luasnip = "[LuaSnip]",
+    nvim_lua = "[Nvim lua]",
+    -- Use this line if you wish to add a specific kind for cmp-vimtex:
+    --vimtex = "[Vimtex]" .. (vim_item.menu ~= nil and vim_item.menu or ""),
+    vimtex = vim_item.menu,
+  })[entry.source.name]
+
+  return vim_item
+end
+```
+
 Eventually, apply your configuration (**note**:this is not necessary unless you want to apply a custom configuration):
 
 ```lua

@@ -5,6 +5,7 @@
 Provides support for:
 - Fuzzy matching against all info provided by Vimtex (including bibliographic details, useful for citations):
   ![](https://github.com/micangl/cmp-vimtex/assets/142919381/4887b19b-d08d-44e3-9b29-22e91a3a1728)
+- Perform websearches of bibliographic completion items on research databases and search engines (check out the [tutorial](https://github.com/micangl/cmp-vimtex/tree/master/doc/README.md));
 - Parse and display all details contained in bibtex files:
   ![](https://github-production-user-asset-6210df.s3.amazonaws.com/142919381/274990752-d9cba239-aa54-4398-a17f-02f6eec1d628.png)
 - Trimming long strings in the completion menu (adds space for the documenation window):

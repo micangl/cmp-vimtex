@@ -16,11 +16,6 @@ M.setup = function(options)
     group = group,
     callback = _start_parser,
   })
-
-  -- Start bibtex_parser now if we are already in a LaTeX buffer
-  if vim.opt_local.filetype:get() == "tex" then
-    _start_parser()
-  end
 end
 
 M.url_default_format = function(url)

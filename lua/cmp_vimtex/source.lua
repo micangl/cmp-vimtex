@@ -17,11 +17,11 @@ local defaults = {
     search_engines = {
       google_scholar = {
         name = "Google Scholar",
-        get_url = require('cmp_vimtex').url_default_format("https://scholar.google.com/scholar?hl=en&q=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://scholar.google.com/scholar?hl=en&q=%s",
       },
       arxiv = {
         name = "arXiv",
-        get_url = require('cmp_vimtex').url_default_format("https://arxiv.org/search/?query=%s&searchtype=all"),
+        get_url = require("cmp_vimtex").url_default_format "https://arxiv.org/search/?query=%s&searchtype=all",
         --get_url = function(data)
         --  local search_url = nil
         --  if type(data) == "table" and data.eprinttype == "arxiv" and data.eprint ~= nil then
@@ -35,44 +35,44 @@ local defaults = {
       },
       ieee_xplore = {
         name = "IEEE Xplore",
-        get_url = require('cmp_vimtex').url_default_format("https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=%s",
       },
       researchgate = {
         name = "ResearchGate",
-        get_url = require('cmp_vimtex').url_default_format("https://www.researchgate.net/search/publication?q=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://www.researchgate.net/search/publication?q=%s",
       },
       jstor = {
         name = "JSTOR",
-        get_url = require('cmp_vimtex').url_default_format("https://www.jstor.org/action/doBasicSearch?Query=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://www.jstor.org/action/doBasicSearch?Query=%s",
       },
       semantic_scholar = {
         name = "Semantic Scholar",
-        get_url = require('cmp_vimtex').url_default_format("https://www.semanticscholar.org/search?q=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://www.semanticscholar.org/search?q=%s",
       },
       google = {
         name = "Google",
-        get_url = require('cmp_vimtex').url_default_format("https://www.google.com/search?q=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://www.google.com/search?q=%s",
       },
       brave_search = {
         name = "Brave Search",
-        get_url = require('cmp_vimtex').url_default_format("https://search.brave.com/search?q=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://search.brave.com/search?q=%s",
       },
       duckduckgo = {
         name = "DuckDuckGo",
-        get_url = require('cmp_vimtex').url_default_format("https://duckduckgo.com/?q=%s"),
+        get_url = require("cmp_vimtex").url_default_format "https://duckduckgo.com/?q=%s",
       },
     },
   },
 }
 
 source.start_parser = function(self)
-  if not vim.loop.fs_stat(vim.b.vimtex.root) then
+  if not vim.b.vimtex or not vim.loop.fs_stat(vim.b.vimtex.root) then
     return
   end
 
   local parser = require "cmp_vimtex.parser"
 
-  vim.cmd [[call vimtex#paths#pushd(b:vimtex.root)]]
+  vim.fn["vimtex#paths#pushd"](vim.b.vimtex.root)
   local files = vim.fn["vimtex#bib#files"]()
   for _, file in pairs(files) do
     if self.bib_files[file] == nil then
@@ -81,7 +81,7 @@ source.start_parser = function(self)
       self.bib_files[file] = new_parser
     end
   end
-  vim.cmd [[call vimtex#paths#popd()]]
+  vim.fn["vimtex#paths#popd"]()
 end
 
 local apply_config = function(user_config)

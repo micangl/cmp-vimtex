@@ -1,21 +1,23 @@
-local M = {}
+local M = {
+  source = nil
+}
 
 M.setup = function(options)
-  local source = require("cmp_vimtex.source").new(options)
-  require("cmp").register_source("vimtex", source)
+  M.source = require("cmp_vimtex.source").new(options)
+  require("cmp").register_source("vimtex", M.source)
 
-  if source.config.bibtex_parser.enabled then
+  if M.source.config.bibtex_parser.enabled then
     -- Create autocommand to start bibtex_parser when we open new LaTeX buffers
     local group = vim.api.nvim_create_augroup("cmp_vimtex", {})
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "tex",
       group = group,
-      callback = function() source:start_parser() end,
+      callback = function() M.source:start_parser() end,
     })
 
     -- Start bibtex_parser now if we are already in a LaTeX buffer
     if vim.opt_local.filetype:get() == "tex" then
-      source:start_parser()
+      M.source:start_parser()
     end
   end
 end

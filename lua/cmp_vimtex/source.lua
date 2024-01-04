@@ -93,7 +93,6 @@ source.new = function(options)
   self.bib_files = {}
   self.config = apply_config(options)
   self.config_loaded = true
-  cmp_vimtex_global = self
 
   return self
 end

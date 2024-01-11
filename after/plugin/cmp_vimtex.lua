@@ -1,3 +1,4 @@
-if cmp_vimtex_global == nil then
+local source = require("cmp_vimtex").source
+if source == nil then
   require("cmp_vimtex").setup()
 end

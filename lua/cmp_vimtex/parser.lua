@@ -139,8 +139,8 @@ parser.start_parsing = function(self)
     self.lnum = nil
 
     for _, v in pairs(self.entries) do
-      self.result[v.label] = self.parse_entry_body(self, v)
-      self.result[v.label].info = self.format_entry(self.result[v.label])
+      self.result[v.cite_key] = self.parse_entry_body(self, v)
+      self.result[v.cite_key].info = self.format_entry(self.result[v.cite_key])
     end
 
     self.strings = nil
@@ -178,7 +178,7 @@ parser.parse_type = function(self, line)
   else
     matches = vim.fn['matchlist'](matches[3], [[\v^([^, ]*)\s*,\s*(.*)]])
     self.current.type = type
-    self.current.label = matches[2]
+    self.current.cite_key = matches[2]
 
     if self.empty(matches[3]) then
       return false
@@ -221,17 +221,17 @@ end
 parser.parse_entry_body = function(self, entry)
   entry.level = nil
 
-  local label = ''
+  local cite_key = ''
   -- Pos is 0-indexed
   local pos = vim.fn['matchend'](entry.body, [[^\s*]])
   while pos >= 0 do
-    if self.empty(label) then
-      label, pos = self.get_key(self, entry.body, pos)
+    if self.empty(cite_key) then
+      cite_key, pos = self.get_key(self, entry.body, pos)
     else
       local value
       value, pos = self.get_value(self, entry.body, pos)
-      entry[label] = value
-      label = ''
+      entry[cite_key] = value
+      cite_key = ''
     end
   end
 

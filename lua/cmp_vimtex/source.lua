@@ -7,6 +7,54 @@ local defaults = {
     info_max_length = 60,
     match_against_info = true,
     symbols_in_menu = true,
+    bib_highlighting = true,
+    highlight_colors = {
+      default_group = "Normal",
+      important_group = "IncSearch",
+      default = {
+        fg = "",
+        bg = "",
+      },
+      important = {
+        fg = "",
+        bg = "",
+      },
+    },
+    highlight_links = {
+      -- Bibtex
+      Address = "Default",
+      Annote = "Default",
+      Author = "Important",
+      Booktitle = "Default",
+      Email = "Default",
+      Chapter = "Default",
+      Crossref = "Default",
+      Doi = "Default",
+      Edition = "Default",
+      Editor = "Default",
+      Howpublished = "Default",
+      Institution = "Default",
+      Journal = "Default",
+      Key = "Default",
+      Month = "Default",
+      Note = "Default",
+      Number = "Default",
+      Organization = "Default",
+      Pages = "Default",
+      Publisher = "Default",
+      School = "Default",
+      Series = "Default",
+      Title = "Important",
+      Type = "Default",
+      Volume = "Default",
+      Year = "Default",
+      -- Biblatex
+      Isbn = "Default",
+      -- cmp-vimtex-specific keys
+      File = "Default",
+      Lnum = "Default",
+      Cite = "Default",
+    },
   },
   bibtex_parser = {
     enabled = true,
@@ -88,11 +136,62 @@ local apply_config = function(user_config)
   return vim.tbl_deep_extend("keep", user_config or {}, defaults)
 end
 
+local apply_syntax = function(config)
+  if config.additional_information.bib_highlighting then
+    local colors = config.additional_information.highlight_colors
+
+    local default_link = true
+    local default_style = ""
+    local default_group = ""
+    if colors.default.fg ~= "" and colors.default.bg ~= "" then
+      default_link = false
+      default_style = string.format("gui=bold guifg=%s guibg=%s", colors.default.fg, colors.default.bg)
+    elseif colors.default_group ~= "" then
+      default_group = colors.default_group
+    end
+
+    local important_link = true
+    local important_style = ""
+    local important_group = ""
+    if colors.important.fg ~= "" and colors.important.bg ~= "" then
+      important_link = false
+      important_style = string.format("gui=bold guifg=%s guibg=%s", colors.important.fg, colors.important.bg)
+    elseif colors.important_group ~= "" then
+      important_group = colors.important_group
+    end
+
+    for key, el in pairs(config.additional_information.highlight_links) do
+      -- If the default options are used
+      if el == "Default" then
+        if default_link then -- Just link the group
+          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, default_group))
+        elseif default_style ~= "" then -- Use the fg bg codes.
+          vim.api.nvim_command(string.format("hi def CmpVimtex%s ", key) .. default_style)
+        end
+      elseif el == "Important" then
+        if important_link then -- Just link the group
+          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, important_group))
+        elseif important_style ~= "" then -- Use the fg bg codes.
+          vim.api.nvim_command(string.format("hi def CmpVimtex%s ", key) .. important_style)
+        end
+      else
+        -- If a non-default highlight group is provided.
+        vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, el))
+      end
+    end
+  end
+end
+
+
+
+
 source.new = function(options)
   local self = setmetatable({}, { __index = source })
   self.bib_files = {}
   self.config = apply_config(options)
   self.config_loaded = true
+
+  apply_syntax(self.config)
 
   return self
 end

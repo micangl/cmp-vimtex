@@ -46,7 +46,7 @@ parser.format_entry = function(entry)
   local _entry = {}
 
   local _format = function(title, object)
-    return "**" .. string.upper(title) .. "**" .. ": " .. object .. "\n"
+    return string.upper(title) .. ": " .. object .. "\n"
   end
 
   local has_priority = function(key, list)
@@ -81,6 +81,8 @@ parser.format_entry = function(entry)
   for _, a in ipairs(_entry) do
     info = info .. a
   end
+
+  info = "```cmpvimtex" .. "\n" .. info .. "\n" .. "```"
 
   return info
 end

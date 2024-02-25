@@ -82,7 +82,10 @@ source.start_parser = function(self)
         self.bib_files[file] = new_parser
       end
     end
+  else
+    print("cmp-vimtex: error when calling vimtex#bib#files in source.lua")
   end
+
   vim.fn["vimtex#paths#popd"]()
 end
 

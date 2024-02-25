@@ -73,12 +73,14 @@ source.start_parser = function(self)
   local parser = require "cmp_vimtex.parser"
 
   vim.fn["vimtex#paths#pushd"](vim.b.vimtex.root)
-  local files = vim.fn["vimtex#bib#files"]()
-  for _, file in pairs(files) do
-    if self.bib_files[file] == nil then
-      local new_parser = parser.new(file)
-      new_parser:start_parsing()
-      self.bib_files[file] = new_parser
+  local success, files = pcall(vim.fn["vimtex#bib#files"])
+  if success then
+    for _, file in pairs(files) do
+      if self.bib_files[file] == nil then
+        local new_parser = parser.new(file)
+        new_parser:start_parsing()
+        self.bib_files[file] = new_parser
+      end
     end
   end
   vim.fn["vimtex#paths#popd"]()

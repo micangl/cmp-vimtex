@@ -9,51 +9,78 @@ local defaults = {
     symbols_in_menu = true,
     bib_highlighting = true,
     highlight_colors = {
-      default_group = "Normal",
-      important_group = "IncSearch",
-      default = {
-        fg = "",
-        bg = "",
-      },
-      important = {
-        fg = "",
-        bg = "",
-      },
+      default_key_group = "PreProc",
+      default_value_group = "String",
+      important_key_group = "Normal",
+      important_value_group = "Identifier",
+      colon_group = "Normal",
     },
     highlight_links = {
       -- Bibtex
       Address = "Default",
+      AddressValue = "Default",
       Annote = "Default",
+      AnnoteValue = "Default",
       Author = "Important",
+      AuthorValue = "Important",
       Booktitle = "Default",
+      BooktitleValue = "Default",
       Email = "Default",
+      EmailValue = "Default",
       Chapter = "Default",
+      ChapterValue = "Default",
       Crossref = "Default",
+      CrossrefValue = "Default",
       Doi = "Default",
+      DoiValue = "Default",
       Edition = "Default",
+      EditionValue = "Default",
       Editor = "Default",
+      EditorValue = "Default",
       Howpublished = "Default",
+      HowpublishedValue = "Default",
       Institution = "Default",
+      InstitutionValue = "Default",
       Journal = "Default",
+      JournalValue = "Default",
       Key = "Default",
+      KeyValue = "Default",
       Month = "Default",
+      MonthValue = "Default",
       Note = "Default",
+      NoteValue = "Default",
       Number = "Default",
+      NumberValue = "Default",
       Organization = "Default",
+      OrganizationValue = "Default",
       Pages = "Default",
+      PagesValue = "Default",
       Publisher = "Default",
+      PublisherValue = "Default",
       School = "Default",
+      SchoolValue = "Default",
       Series = "Default",
+      SeriesValue = "Default",
       Title = "Important",
+      TitleValue = "Important",
       Type = "Default",
+      TypeValue = "Default",
       Volume = "Default",
+      VolumeValue = "Default",
       Year = "Default",
+      YearValue = "Default",
       -- Biblatex
       Isbn = "Default",
+      IsbnValue = "Default",
+      Issn = "Default",
+      IssnValue = "Default",
       -- cmp-vimtex-specific keys
       File = "Default",
+      FileValue = "Default",
       Lnum = "Default",
+      LnumValue = "Default",
       Cite = "Default",
+      CiteValue = "Default",
     },
   },
   bibtex_parser = {
@@ -140,39 +167,21 @@ local apply_syntax = function(config)
   if config.additional_information.bib_highlighting then
     local colors = config.additional_information.highlight_colors
 
-    local default_link = true
-    local default_style = ""
-    local default_group = ""
-    if colors.default.fg ~= "" and colors.default.bg ~= "" then
-      default_link = false
-      default_style = string.format("gui=bold guifg=%s guibg=%s", colors.default.fg, colors.default.bg)
-    elseif colors.default_group ~= "" then
-      default_group = colors.default_group
-    end
-
-    local important_link = true
-    local important_style = ""
-    local important_group = ""
-    if colors.important.fg ~= "" and colors.important.bg ~= "" then
-      important_link = false
-      important_style = string.format("gui=bold guifg=%s guibg=%s", colors.important.fg, colors.important.bg)
-    elseif colors.important_group ~= "" then
-      important_group = colors.important_group
-    end
+    vim.api.nvim_command(string.format("hi def link CmpVimtexColon %s", colors.colon_group))
 
     for key, el in pairs(config.additional_information.highlight_links) do
       -- If the default options are used
       if el == "Default" then
-        if default_link then -- Just link the group
-          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, default_group))
-        elseif default_style ~= "" then -- Use the fg bg codes.
-          vim.api.nvim_command(string.format("hi def CmpVimtex%s ", key) .. default_style)
+        if key:find("Value") ~= nil then
+          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, colors.default_value_group))
+        else
+          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, colors.default_key_group))
         end
       elseif el == "Important" then
-        if important_link then -- Just link the group
-          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, important_group))
-        elseif important_style ~= "" then -- Use the fg bg codes.
-          vim.api.nvim_command(string.format("hi def CmpVimtex%s ", key) .. important_style)
+        if key:find("Value") ~= nil then
+          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, colors.important_value_group))
+        else
+          vim.api.nvim_command(string.format("hi def link CmpVimtex%s %s", key, colors.important_key_group))
         end
       else
         -- If a non-default highlight group is provided.

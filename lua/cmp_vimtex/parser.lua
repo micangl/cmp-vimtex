@@ -46,7 +46,7 @@ parser.format_entry = function(entry)
   local _entry = {}
 
   local _format = function(title, object)
-    return string.upper(title) .. ": " .. object .. "\n"
+    return string.upper(title) .. ": " .. string.gsub(object, "%s%s+", " ") .. "\n"
   end
 
   local has_priority = function(key, list)

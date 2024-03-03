@@ -9,11 +9,11 @@ local defaults = {
     symbols_in_menu = true,
     bib_highlighting = true,
     highlight_colors = {
+      colon_group = "Normal",
       default_key_group = "PreProc",
       default_value_group = "String",
       important_key_group = "Normal",
       important_value_group = "Identifier",
-      colon_group = "Normal",
     },
     highlight_links = {
       -- Bibtex

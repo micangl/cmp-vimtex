@@ -96,7 +96,7 @@ people who find themselves working a lot with citations.
 
   If the display of information is, in both cases, undesired, setting the option [info_in_window](#additional_informationinfo_in_window-boolean) to `false` will prevent it.
 - Highlighting the additional information in the documentation window.
-  ![]()
+
   Toggle with [bib_highlighting](#additional_informationbib_highlighting-boolean).
 
   Two possible highlighting options, by default, are available for each item: `"Default"` or `"Important"`. They control how the keys and values will be highlighted. It's possible to assign different highlight groups to each, together with one for the colons which appear in the documentation window:

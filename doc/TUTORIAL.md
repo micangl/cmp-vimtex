@@ -2,7 +2,7 @@
 
 
 **NOTE**: this should be considered a **reference** tutorial, which means that most of
-this information will result superflous to many users.
+this information will be superfluous to many users.
 
 ## Table of contents
 - [Installation](#installation)
@@ -104,7 +104,7 @@ people who find themselves working a lot with citations.
   ```
 
   Alternatively, the `perform_search` can be used to immediately perform a websearch with a specific engine.
-  It can, optionally, receive as argument a table with the engine key, which unusprisingly specifies which engine to use.
+  It can, optionally, receive as argument a table with the engine key, which unsurprisingly specifies which engine to use.
   If none is provided, the default is used; this can be specified with the [default](#searchdefault-string) field. As an example:
   ```lua
   vim.keymap.set("i", "<C-s>", function() require('cmp_vimtex.search').perform_search({ engine = "arxiv", }) end)
@@ -141,7 +141,7 @@ people who find themselves working a lot with citations.
   ```
 
   For more advanced uses, users can define their own `get_url` function. Since this is outside the scope of this tutorial, interested users
-  can refere to the implementation of the `url_default_format` function in the [init.lua](https://github.com/micangl/cmp-vimtex/blob/tutorial/lua/cmp_vimtex/init.lua) file.
+  can refer to the implementation of the `url_default_format` function in the [init.lua](https://github.com/micangl/cmp-vimtex/blob/tutorial/lua/cmp_vimtex/init.lua) file.
 
 ## Options
 
@@ -176,12 +176,12 @@ require('cmp_vimtex').setup({
 ### additional_information.info_in_menu: boolean
 default: true
 
-Show detailed information (such as citations details) in the completion menu.
+Show detailed information (such as citation details) in the completion menu.
 
 ### additional_information.info_in_window: boolean
 default: true
 
-Show detailed information (such as citations details) in the documentation window.
+Show detailed information (such as citation details) in the documentation window.
 
 ### additional_information.info_max_length: integer
 default: 60
@@ -203,7 +203,7 @@ Show sybmols associated with Latex keywords inside completion menu.
 ### bibtex_parser.enabled: boolean
 default: true
 
-The source comes with a bibtex parser (a lua port of Vimtex's own), used to display, inside the documentation window, all of the bibliographic informations contained in the files.
+The source comes with a bibtex parser (a lua port of Vimtex's own), used to display, inside the documentation window, all of the bibliographic information contained in the files.
 
 If the parser is disabled, the plugin will only show author/title/publication date (provided directly by Vimtex's omnifunc).
 

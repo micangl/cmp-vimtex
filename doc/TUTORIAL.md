@@ -154,6 +154,7 @@ require('cmp_vimtex').setup({
     info_in_window = true,
     info_max_length = 60,
     match_against_info = true,
+    origin_in_menu = true,
     symbols_in_menu = true,
   },
   bibtex_parser = {
@@ -188,6 +189,11 @@ default: 60
 
 Limit length (width) of additional info shown in the completion menu to the specified number of characters.
 To turn off this feature, set the option to a negative value.
+
+### additional_information.origin_in_menu: boolean
+default: true
+
+Show the origin (package) of an entry.
 
 ### additional_information.match_against_info: boolean
 default: true

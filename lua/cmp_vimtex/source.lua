@@ -6,6 +6,7 @@ local defaults = {
     info_in_window = true,
     info_max_length = 60,
     match_against_info = true,
+    origin_in_menu = true,
     symbols_in_menu = true,
   },
   bibtex_parser = {
@@ -156,10 +157,14 @@ source.complete = function(self, params, callback)
           range = text_edit_range,
           newText = v.word,
         },
-        labelDetails = {
-          detail = v.kind,
-        },
+        labelDetails = {},
       }
+
+      if config.additional_information.origin_in_menu then
+        _item.labelDetails.detail = v.kind
+      else
+        _item.labelDetails.detail = ""
+      end
 
       if config.additional_information.info_in_menu and menuLength > 3 then
         _item.labelDetails.description = v.menu

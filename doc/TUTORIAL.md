@@ -91,10 +91,36 @@ people who find themselves working a lot with citations.
 
 - Parsing all the information contained in bibtex files, and displaying it in the documentation window.
   ![](https://github-production-user-asset-6210df.s3.amazonaws.com/142919381/274990752-d9cba239-aa54-4398-a17f-02f6eec1d628.png)
-  Toggle with [enabled](bibtex_parserenabled-boolean). If the parser is disabled, the information shown in the documentation
+  Toggle with [enabled](#bibtex_parserenabled-boolean). If the parser is disabled, the information shown in the documentation
   window will be that provided by Vimtex itself (author, title, publication date).
 
   If the display of information is, in both cases, undesired, setting the option [info_in_window](#additional_informationinfo_in_window-boolean) to `false` will prevent it.
+- Highlighting the additional information in the documentation window.
+
+  Toggle with [bib_highlighting](#additional_informationbib_highlighting-boolean).
+
+  Two possible highlighting options, by default, are available for each item: `"Default"` or `"Important"`. They control how the keys and values will be highlighted. It's possible to assign different highlight groups to each, together with one for the colons which appear in the documentation window:
+  ```lua
+  additional_information = {
+    highlight_colors = {
+      colon_group = "Normal",
+      default_key_group = "PreProc",
+      default_value_group = "String",
+      important_key_group = "Normal",
+      important_value_group = "Identifier",
+    },
+  },
+  ```
+  Additionally, it's possible to specify for each bibliographic key a custom highlight group through the [highlight_link](#additional_informationhighlight_links-table) table:
+  ```lua
+  highlight_links = {
+    Author = "Important",
+    AuthorValue = "Important",
+    -- Other highlight groups.
+  }
+  ```
+  For the list of possible keys refere to [highlight_link](#additional_informationhighlight_links-table).
+
 - Searching in bibliographic databases and through search engines.
 
   When a specific entry is selected, calling the `search_menu` function will open a menu, thus allowing the user to select
@@ -156,6 +182,17 @@ require('cmp_vimtex').setup({
     match_against_info = true,
     origin_in_menu = true,
     symbols_in_menu = true,
+    bib_highlighting = true,
+    highlight_colors = {
+      colon_group = "Normal",
+      default_key_group = "PreProc",
+      default_value_group = "String",
+      important_key_group = "Normal",
+      important_value_group = "Identifier",
+    },
+    highlight_links = {
+      Annote = "Default",
+      -- Other groups.
   },
   bibtex_parser = {
     enabled = true,
@@ -205,6 +242,44 @@ Particularly useful when completing citations, since the user can simply type th
 default: true
 
 Show sybmols associated with Latex keywords inside completion menu.
+
+### additional_information.bib_highlighting: boolean
+default: true
+
+Highlight additional bibliographic information in the documentation window.
+
+### additional_information.highlight_colors: table
+default: refer to [source.lua](https://github.com/micangl/cmp-vimtex/blob/tutorial/lua/cmp_vimtex/source.lua).
+
+### additional_information.highlight_colors.colon_group: string
+default: "Normal"
+
+Highlight group for the colons which appear in the documentation window.
+
+### additional_information.highlight_colors.default_key_group: string
+default: "PreProc"
+
+Highlight group for the bibliographic keys which appear in the documentation window.
+
+### additional_information.highlight_colors.default_value_group: string
+default: "String"
+
+Highlight group for values of the bibliographic keys which appear in the documentation window.
+
+### additional_information.highlight_colors.important_key_group: string
+default: "Normal"
+
+Highlight group for the bibliographic keys which have been marked as important and appear in the documentation window.
+
+### additional_information.highlight_colors.important_value_group: string
+default: "Identifier"
+
+Highlight group for the values of the bibliographic keys which have been marked as important and appear in the documentation window.
+
+### additional_information.highlight_links: table
+default: refer to [source.lua](https://github.com/micangl/cmp-vimtex/blob/tutorial/lua/cmp_vimtex/source.lua).
+
+Table containing the correspondence between entry-type and highlight group.
 
 ### bibtex_parser.enabled: boolean
 default: true

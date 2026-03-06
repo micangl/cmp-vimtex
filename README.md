@@ -40,6 +40,8 @@ require("lazy").setup({
 
 ## Setup
 
+### nvim-cmp
+
 Add cmp-vimtex as a completion source:
 
 ```lua
@@ -74,6 +76,10 @@ require('cmp_vimtex').setup({
     -- Check out the tutorial for further details.
 })
 ```
+
+### blink.cmp
+
+You may check out [this](https://github.com/micangl/cmp-vimtex/issues/30#issuecomment-3084686827) example configuration.
 
 ## Advanced setup
 

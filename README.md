@@ -8,7 +8,7 @@ Check out the [tutorial](https://github.com/micangl/cmp-vimtex/tree/master/doc/T
 - [Features](#features)
 - [Installation](#installation)
   - [nvim-cmp](#nvim-cmp)
-  - [blink](#blinkcmp)
+  - [blink.cmp](#blinkcmp)
 - [Setup](#setup)
 - [Advanced setup](#advanced-setup)
 - [Acknowledgments](#acknowledgments)
